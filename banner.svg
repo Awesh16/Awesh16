@@ -258,7 +258,7 @@
 
   <!-- Pink frown orb (with cinematic glow trail) -->
   <g>
-    <animateMotion path="M 900,210 L 700,370 L 525,210 L 700,50 Z" dur="12s" repeatCount="indefinite"/>
+    <animateMotion path="M 900,210 L 700,370 L 525,210 L 700,50 Z" dur="12.7s" repeatCount="indefinite"/>
     <circle cx="0" cy="0" r="22" fill="url(#orbPink)" filter="url(#magentaGlow)"/>
     <circle cx="0" cy="0" r="24" fill="none" stroke="#ff2d75" stroke-width="1" opacity="0.4">
       <animate attributeName="r" values="24;28;24" dur="2.5s" repeatCount="indefinite"/>
@@ -275,7 +275,7 @@
   </rect>
 
   <!-- =================== TEXT CONTENT =================== -->
-  <g text-anchor="middle" font-family="'SF Pro Display', 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" letter-spacing="1">
+  <g text-anchor="middle" font-family="'Inter', 'Segoe UI', 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" letter-spacing="1">
 
     <!-- Name: cinematic title with layered glow -->
     <text x="500" y="145" font-size="36" font-weight="800" fill="#ffffff" filter="url(#cyanGlow)" letter-spacing="6">MD. AWESH RAZA QUADRI</text>
