@@ -269,19 +269,21 @@
   <text x="880" y="30" font-family="'Courier New', 'Lucida Console', monospace" font-size="7" font-weight="400" fill="#8b949e" letter-spacing="1" opacity="0.2">INIT::READY</text>
 
   <!-- =================== BOUNCING BALLS =================== -->
-  <!-- Ball 1: Deep Red with Smiling Face -->
+  <!-- Ball 1: Yellow with Smiling Face — free bouncing via independent X/Y -->
   <g filter="url(#ballGlow)">
+    <!-- Independent X motion -->
     <animateTransform attributeName="transform" type="translate"
-      values="100 80; 920 340; 500 200; 80 360; 700 60; 100 80"
-      keyTimes="0; 0.2; 0.4; 0.6; 0.8; 1"
-      calcMode="spline"
-      keySplines="0.42 0 0.58 1; 0.42 0 0.58 1; 0.42 0 0.58 1; 0.42 0 0.58 1; 0.42 0 0.58 1"
-      dur="10s" repeatCount="indefinite"/>
+      values="80 0; 920 0; 80 0"
+      dur="7s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+    <!-- Independent Y motion (incommensurate duration for non-repeating path) -->
+    <animateTransform attributeName="transform" type="translate"
+      values="0 60; 0 370; 0 60"
+      dur="5.3s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
     <g>
       <animateTransform attributeName="transform" type="rotate"
         from="0" to="360" dur="2s" repeatCount="indefinite"/>
       <!-- Ball body -->
-      <circle r="22" fill="#8B0000" stroke="#cc0000" stroke-width="1.5" opacity="0.92"/>
+      <circle r="22" fill="#FFD700" stroke="#FFC000" stroke-width="1.5" opacity="0.92"/>
       <!-- Eye whites -->
       <circle cx="-7" cy="-5" r="3.5" fill="white"/>
       <circle cx="7" cy="-5" r="3.5" fill="white"/>
@@ -293,19 +295,21 @@
     </g>
   </g>
 
-  <!-- Ball 2: Deep Green with Frowning Face -->
+  <!-- Ball 2: Pink with Frowning Face — free bouncing via independent X/Y -->
   <g filter="url(#ballGlow)">
+    <!-- Independent X motion -->
     <animateTransform attributeName="transform" type="translate"
-      values="900 340; 80 80; 500 200; 920 60; 300 380; 900 340"
-      keyTimes="0; 0.2; 0.4; 0.6; 0.8; 1"
-      calcMode="spline"
-      keySplines="0.42 0 0.58 1; 0.42 0 0.58 1; 0.42 0 0.58 1; 0.42 0 0.58 1; 0.42 0 0.58 1"
-      dur="10s" repeatCount="indefinite"/>
+      values="920 0; 80 0; 920 0"
+      dur="8.3s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+    <!-- Independent Y motion (incommensurate duration for non-repeating path) -->
+    <animateTransform attributeName="transform" type="translate"
+      values="0 370; 0 60; 0 370"
+      dur="6.1s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
     <g>
       <animateTransform attributeName="transform" type="rotate"
         from="0" to="-360" dur="2.5s" repeatCount="indefinite"/>
       <!-- Ball body -->
-      <circle r="22" fill="#006400" stroke="#00aa00" stroke-width="1.5" opacity="0.92"/>
+      <circle r="22" fill="#FF69B4" stroke="#FF1493" stroke-width="1.5" opacity="0.92"/>
       <!-- Eye whites -->
       <circle cx="-7" cy="-5" r="3.5" fill="white"/>
       <circle cx="7" cy="-5" r="3.5" fill="white"/>
@@ -317,87 +321,7 @@
     </g>
   </g>
 
-  <!-- =================== COLLISION EFFECTS =================== -->
-  <!-- Ball-ball collision burst at center (500, 200) at t=0.4 -->
-  <!-- Shockwave ring -->
-  <circle cx="500" cy="200" r="10" fill="none" stroke="#ffff00" stroke-width="3" opacity="0" filter="url(#collisionGlow)">
-    <animate attributeName="opacity"
-      values="0;0;0;0.9;0.5;0;0;0;0"
-      keyTimes="0;0.36;0.39;0.40;0.43;0.46;0.60;0.80;1"
-      dur="10s" repeatCount="indefinite"/>
-    <animate attributeName="r"
-      values="10;10;10;12;45;65;65;65;10"
-      keyTimes="0;0.36;0.39;0.40;0.43;0.46;0.60;0.80;1"
-      dur="10s" repeatCount="indefinite"/>
-    <animate attributeName="stroke-width"
-      values="3;3;3;4;2;0.5;0.5;0.5;3"
-      keyTimes="0;0.36;0.39;0.40;0.43;0.46;0.60;0.80;1"
-      dur="10s" repeatCount="indefinite"/>
-  </circle>
-
-  <!-- Inner collision flash -->
-  <circle cx="500" cy="200" r="18" fill="#ffffff" opacity="0">
-    <animate attributeName="opacity"
-      values="0;0;0;0.9;0.3;0;0;0;0"
-      keyTimes="0;0.36;0.39;0.40;0.42;0.44;0.60;0.80;1"
-      dur="10s" repeatCount="indefinite"/>
-    <animate attributeName="r"
-      values="18;18;18;20;30;18;18;18;18"
-      keyTimes="0;0.36;0.39;0.40;0.42;0.44;0.60;0.80;1"
-      dur="10s" repeatCount="indefinite"/>
-  </circle>
-
-  <!-- Collision spark lines -->
-  <g transform="translate(500, 200)" opacity="0">
-    <animate attributeName="opacity"
-      values="0;0;0;0.95;0.4;0;0;0;0"
-      keyTimes="0;0.36;0.39;0.40;0.44;0.48;0.60;0.80;1"
-      dur="10s" repeatCount="indefinite"/>
-    <!-- Cardinal sparks -->
-    <line x1="-25" y1="0" x2="-50" y2="0" stroke="#ffcc00" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="25" y1="0" x2="50" y2="0" stroke="#ffcc00" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="0" y1="-25" x2="0" y2="-50" stroke="#ffcc00" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="0" y1="25" x2="0" y2="50" stroke="#ffcc00" stroke-width="2.5" stroke-linecap="round"/>
-    <!-- Diagonal sparks -->
-    <line x1="-18" y1="-18" x2="-35" y2="-35" stroke="#ff8800" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="18" y1="-18" x2="35" y2="-35" stroke="#ff8800" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="-18" y1="18" x2="-35" y2="35" stroke="#ff8800" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="18" y1="18" x2="35" y2="35" stroke="#ff8800" stroke-width="1.8" stroke-linecap="round"/>
-  </g>
-
-  <!-- Wall collision effects for Ball 1 (red) -->
-  <!-- At (920, 340) at t=0.2 -->
-  <circle cx="940" cy="340" r="8" fill="none" stroke="#ff4444" stroke-width="2" opacity="0">
-    <animate attributeName="opacity" values="0;0;0.8;0;0" keyTimes="0;0.18;0.20;0.24;1" dur="10s" repeatCount="indefinite"/>
-    <animate attributeName="r" values="8;8;30;8;8" keyTimes="0;0.18;0.24;0.25;1" dur="10s" repeatCount="indefinite"/>
-  </circle>
-  <!-- At (80, 360) at t=0.6 -->
-  <circle cx="60" cy="360" r="8" fill="none" stroke="#ff4444" stroke-width="2" opacity="0">
-    <animate attributeName="opacity" values="0;0;0.8;0;0" keyTimes="0;0.58;0.60;0.64;1" dur="10s" repeatCount="indefinite"/>
-    <animate attributeName="r" values="8;8;30;8;8" keyTimes="0;0.58;0.64;0.65;1" dur="10s" repeatCount="indefinite"/>
-  </circle>
-  <!-- At (700, 60) at t=0.8 -->
-  <circle cx="700" cy="40" r="8" fill="none" stroke="#ff4444" stroke-width="2" opacity="0">
-    <animate attributeName="opacity" values="0;0;0.8;0;0" keyTimes="0;0.78;0.80;0.84;1" dur="10s" repeatCount="indefinite"/>
-    <animate attributeName="r" values="8;8;30;8;8" keyTimes="0;0.78;0.84;0.85;1" dur="10s" repeatCount="indefinite"/>
-  </circle>
-
-  <!-- Wall collision effects for Ball 2 (green) -->
-  <!-- At (80, 80) at t=0.2 -->
-  <circle cx="60" cy="80" r="8" fill="none" stroke="#33cc33" stroke-width="2" opacity="0">
-    <animate attributeName="opacity" values="0;0;0.8;0;0" keyTimes="0;0.18;0.20;0.24;1" dur="10s" repeatCount="indefinite"/>
-    <animate attributeName="r" values="8;8;30;8;8" keyTimes="0;0.18;0.24;0.25;1" dur="10s" repeatCount="indefinite"/>
-  </circle>
-  <!-- At (920, 60) at t=0.6 -->
-  <circle cx="940" cy="60" r="8" fill="none" stroke="#33cc33" stroke-width="2" opacity="0">
-    <animate attributeName="opacity" values="0;0;0.8;0;0" keyTimes="0;0.58;0.60;0.64;1" dur="10s" repeatCount="indefinite"/>
-    <animate attributeName="r" values="8;8;30;8;8" keyTimes="0;0.58;0.64;0.65;1" dur="10s" repeatCount="indefinite"/>
-  </circle>
-  <!-- At (300, 380) at t=0.8 -->
-  <circle cx="300" cy="400" r="8" fill="none" stroke="#33cc33" stroke-width="2" opacity="0">
-    <animate attributeName="opacity" values="0;0;0.8;0;0" keyTimes="0;0.78;0.80;0.84;1" dur="10s" repeatCount="indefinite"/>
-    <animate attributeName="r" values="8;8;30;8;8" keyTimes="0;0.78;0.84;0.85;1" dur="10s" repeatCount="indefinite"/>
-  </circle>
+  <!-- =================== COLLISION EFFECTS (removed — balls now move freely) =================== -->
 
   <!-- =================== LENS FLARE =================== -->
   <rect x="0" y="200" width="1000" height="3" fill="url(#flareGrad)" opacity="0">
