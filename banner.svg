@@ -269,16 +269,12 @@
   <text x="880" y="30" font-family="'Courier New', 'Lucida Console', monospace" font-size="7" font-weight="400" fill="#8b949e" letter-spacing="1" opacity="0.2">INIT::READY</text>
 
   <!-- =================== BOUNCING BALLS =================== -->
-  <!-- Ball 1: Yellow with Smiling Face — free bouncing via independent X/Y -->
+  <!-- Ball 1: Yellow with Smiling Face — coordinated path with repulsion -->
   <g filter="url(#ballGlow)">
-    <!-- Independent X motion -->
     <animateTransform attributeName="transform" type="translate"
-      values="80 0; 920 0; 80 0"
-      dur="7s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
-    <!-- Independent Y motion (incommensurate duration for non-repeating path) -->
-    <animateTransform attributeName="transform" type="translate"
-      values="0 60; 0 370; 0 60"
-      dur="5.3s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      values="100,80; 475,210; 150,350; 850,100; 475,250; 200,100; 100,80"
+      keyTimes="0; 0.167; 0.333; 0.5; 0.667; 0.833; 1"
+      dur="12s" repeatCount="indefinite" calcMode="linear"/>
     <g>
       <animateTransform attributeName="transform" type="rotate"
         from="0" to="360" dur="2s" repeatCount="indefinite"/>
@@ -291,20 +287,16 @@
       <circle cx="-7" cy="-5" r="1.8" fill="black"/>
       <circle cx="7" cy="-5" r="1.8" fill="black"/>
       <!-- Smile arc -->
-      <path d="M-9,4 Q0,14 9,4" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M-9,4 Q0,14 9,4" stroke="black" stroke-width="2" fill="none" stroke-linecap="round"/>
     </g>
   </g>
 
-  <!-- Ball 2: Pink with Frowning Face — free bouncing via independent X/Y -->
+  <!-- Ball 2: Pink with Frowning Face — coordinated path with repulsion -->
   <g filter="url(#ballGlow)">
-    <!-- Independent X motion -->
     <animateTransform attributeName="transform" type="translate"
-      values="920 0; 80 0; 920 0"
-      dur="8.3s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
-    <!-- Independent Y motion (incommensurate duration for non-repeating path) -->
-    <animateTransform attributeName="transform" type="translate"
-      values="0 370; 0 60; 0 370"
-      dur="6.1s" repeatCount="indefinite" calcMode="linear" additive="sum"/>
+      values="900,340; 525,210; 850,80; 150,340; 525,250; 800,340; 900,340"
+      keyTimes="0; 0.167; 0.333; 0.5; 0.667; 0.833; 1"
+      dur="12s" repeatCount="indefinite" calcMode="linear"/>
     <g>
       <animateTransform attributeName="transform" type="rotate"
         from="0" to="-360" dur="2.5s" repeatCount="indefinite"/>
@@ -317,11 +309,21 @@
       <circle cx="-7" cy="-5" r="1.8" fill="black"/>
       <circle cx="7" cy="-5" r="1.8" fill="black"/>
       <!-- Frown arc -->
-      <path d="M-9,10 Q0,2 9,10" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M-9,10 Q0,2 9,10" stroke="black" stroke-width="2" fill="none" stroke-linecap="round"/>
     </g>
   </g>
 
-  <!-- =================== COLLISION EFFECTS (removed — balls now move freely) =================== -->
+  <!-- =================== COLLISION EFFECTS =================== -->
+  <!-- Burst at encounter point 1 (~500,210 at t=2s in 12s cycle) -->
+  <circle cx="500" cy="210" r="5" fill="none" stroke="#FFD700" stroke-width="1.5" opacity="0" filter="url(#collisionGlow)">
+    <animate attributeName="opacity" values="0;0;0.7;0;0" keyTimes="0;0.14;0.167;0.22;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="5;5;35;45;5" keyTimes="0;0.14;0.19;0.22;1" dur="12s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Burst at encounter point 2 (~500,250 at t=8s in 12s cycle) -->
+  <circle cx="500" cy="250" r="5" fill="none" stroke="#FF69B4" stroke-width="1.5" opacity="0" filter="url(#collisionGlow)">
+    <animate attributeName="opacity" values="0;0;0.7;0;0" keyTimes="0;0.64;0.667;0.72;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="5;5;35;45;5" keyTimes="0;0.64;0.69;0.72;1" dur="12s" repeatCount="indefinite"/>
+  </circle>
 
   <!-- =================== LENS FLARE =================== -->
   <rect x="0" y="200" width="1000" height="3" fill="url(#flareGrad)" opacity="0">
