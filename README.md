@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./banner.svg" alt="Awesh's Animated Banner" width="100%" />
+  <img src="./banner.svg" alt="Awesh's Pixelated Tech Quant Banner" width="100%" />
 </div>
 
 
