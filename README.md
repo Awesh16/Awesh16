@@ -1,5 +1,6 @@
-# 💫 About Me:
-Hey Myself Md. Awesh Raza Quadri<br> Aspiring AI & ML Quant  | CSE '29 @OUTR | DS and ML '29@IITM BS | Focussed on Competitive Programming and Managing Databases<br>
+<div align="center">
+  <img src="./banner.svg" alt="Awesh's Animated Banner" width="100%" />
+</div>
 
 
 ## 🌐 Socials:
