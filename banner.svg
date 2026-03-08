@@ -14,6 +14,15 @@
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
+
+    <g id="spark">
+      <circle cx="0" cy="0" r="8" fill="#ffffff" filter="url(#greenGlow)"/>
+      <path d="M-20,0 L20,0 M0,-20 L0,20 M-14,-14 L14,14 M-14,14 L14,-14" stroke="#ffffff" stroke-width="3" filter="url(#greenGlow)"/>
+    </g>
+    <g id="bigSpark">
+      <circle cx="0" cy="0" r="16" fill="#ffffff" filter="url(#redGlow)"/>
+      <path d="M-40,0 L40,0 M0,-40 L0,40 M-28,-28 L28,28 M-28,28 L28,-28" stroke="#ffffff" stroke-width="5" filter="url(#greenGlow)"/>
+    </g>
   </defs>
 
   <g opacity="0.6">
@@ -40,39 +49,59 @@
     </rect>
   </g>
 
-  <g>
-    <animateTransform attributeName="transform" type="translate" values="40,0; 960,0; 40,0" dur="13s" repeatCount="indefinite" />
-    <g>
-      <animateTransform attributeName="transform" type="translate" values="0,40; 0,380; 0,40" dur="9s" repeatCount="indefinite" />
-      
-      <circle cx="0" cy="0" r="25" fill="#ffde59" stroke="#1a1d21" stroke-width="2"/>
-      <circle cx="-8" cy="-6" r="3" fill="#1a1d21"/>
-      <circle cx="8" cy="-6" r="3" fill="#1a1d21"/>
-      <path d="M -12,4 Q 0,16 12,4" fill="none" stroke="#1a1d21" stroke-width="3" stroke-linecap="round"/>
+  <g transform="translate(500, 210)">
+    <g opacity="0">
+      <animate attributeName="opacity" values="0; 1; 0; 0" keyTimes="0; 0.02; 0.08; 1" dur="10s" begin="5s" repeatCount="indefinite"/>
+      <use href="#bigSpark"/>
     </g>
   </g>
 
-  <g>
-    <animateTransform attributeName="transform" type="translate" values="960,0; 40,0; 960,0" dur="17s" repeatCount="indefinite" />
-    <g>
-      <animateTransform attributeName="transform" type="translate" values="0,380; 0,40; 0,380" dur="11s" repeatCount="indefinite" />
-      
-      <circle cx="0" cy="0" r="25" fill="#ff66b2" stroke="#1a1d21" stroke-width="2"/>
-      <circle cx="-8" cy="-4" r="3" fill="#1a1d21"/>
-      <circle cx="8" cy="-4" r="3" fill="#1a1d21"/>
-      <path d="M -12,14 Q 0,4 12,14" fill="none" stroke="#1a1d21" stroke-width="3" stroke-linecap="round"/>
-    </g>
+  <g transform="translate(75, 210)">
+    <g opacity="0"><animate attributeName="opacity" values="0; 1; 0; 0" keyTimes="0; 0.02; 0.06; 1" dur="10s" begin="0s" repeatCount="indefinite"/><use href="#spark"/></g>
+  </g>
+  <g transform="translate(925, 210)">
+    <g opacity="0"><animate attributeName="opacity" values="0; 1; 0; 0" keyTimes="0; 0.02; 0.06; 1" dur="10s" begin="0s" repeatCount="indefinite"/><use href="#spark"/></g>
   </g>
 
-  <g text-anchor="middle" font-family="Consolas, Monaco, 'Courier New', monospace" letter-spacing="1">
+  <g transform="translate(300, 15)">
+    <g opacity="0"><animate attributeName="opacity" values="0; 1; 0; 0" keyTimes="0; 0.02; 0.06; 1" dur="10s" begin="2.5s" repeatCount="indefinite"/><use href="#spark"/></g>
+  </g>
+  <g transform="translate(700, 405)">
+    <g opacity="0"><animate attributeName="opacity" values="0; 1; 0; 0" keyTimes="0; 0.02; 0.06; 1" dur="10s" begin="2.5s" repeatCount="indefinite"/><use href="#spark"/></g>
+  </g>
+
+  <g transform="translate(300, 405)">
+    <g opacity="0"><animate attributeName="opacity" values="0; 1; 0; 0" keyTimes="0; 0.02; 0.06; 1" dur="10s" begin="7.5s" repeatCount="indefinite"/><use href="#spark"/></g>
+  </g>
+  <g transform="translate(700, 15)">
+    <g opacity="0"><animate attributeName="opacity" values="0; 1; 0; 0" keyTimes="0; 0.02; 0.06; 1" dur="10s" begin="7.5s" repeatCount="indefinite"/><use href="#spark"/></g>
+  </g>
+
+  <g>
+    <animateMotion path="M 100,210 L 300,40 L 475,210 L 300,380 Z" dur="10s" repeatCount="indefinite" />
+    <circle cx="0" cy="0" r="25" fill="#ffde59" stroke="#1a1d21" stroke-width="2"/>
+    <circle cx="-8" cy="-6" r="3" fill="#1a1d21"/>
+    <circle cx="8" cy="-6" r="3" fill="#1a1d21"/>
+    <path d="M -12,4 Q 0,16 12,4" fill="none" stroke="#1a1d21" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <g>
+    <animateMotion path="M 900,210 L 700,380 L 525,210 L 700,40 Z" dur="10s" repeatCount="indefinite" />
+    <circle cx="0" cy="0" r="25" fill="#ff66b2" stroke="#1a1d21" stroke-width="2"/>
+    <circle cx="-8" cy="-4" r="3" fill="#1a1d21"/>
+    <circle cx="8" cy="-4" r="3" fill="#1a1d21"/>
+    <path d="M -12,14 Q 0,4 12,14" fill="none" stroke="#1a1d21" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <g text-anchor="middle" font-family="'Press Start 2P', 'VT323', 'Courier New', Courier, monospace" letter-spacing="2">
     
-    <text x="500" y="140" font-size="38" font-weight="900" fill="#ffffff" filter="url(#greenGlow)">Md. Awesh Raza Quadri</text>
+    <text x="500" y="140" font-size="34" font-weight="900" fill="#ffffff" filter="url(#greenGlow)" text-transform="uppercase">MD. AWESH RAZA QUADRI</text>
     
-    <text x="500" y="195" font-size="24" font-weight="700" fill="#ff4444" filter="url(#redGlow)">// Aspiring AI &amp; ML Quant</text>
+    <text x="500" y="195" font-size="22" font-weight="700" fill="#ff4444" filter="url(#redGlow)" text-transform="uppercase">// Aspiring AI &amp; ML Quant</text>
     
     <path d="M 350 240 L 650 240 L 670 250 L 330 250 Z" fill="#1a1d21" stroke="#00ff41" stroke-width="1"/>
 
-    <text x="500" y="300" font-size="18" font-weight="600" fill="#00ff41">CSE '29 @OUTR | DS and ML '29 @IITM BS</text>
-    <text x="500" y="330" font-size="16" font-style="italic" fill="#8b949e">Focused on Competitive Programming &amp; Managing Databases</text>
+    <text x="500" y="300" font-size="16" font-weight="600" fill="#00ff41" text-transform="uppercase">CSE '29 @OUTR | DS &amp; ML '29 @IITM BS</text>
+    <text x="500" y="330" font-size="14" fill="#8b949e" text-transform="uppercase">Focused on Competitive Programming &amp; Databases</text>
   </g>
 </svg>
