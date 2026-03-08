@@ -1,309 +1,262 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" width="100%" height="100%">
   <defs>
-    <!-- Background gradient: deep space -->
-    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0a0e17"/>
-      <stop offset="40%" stop-color="#0d1224"/>
-      <stop offset="100%" stop-color="#0f0818"/>
-    </linearGradient>
-
-    <!-- Cinematic vignette -->
-    <radialGradient id="vignette" cx="50%" cy="50%" r="60%">
+    <!-- Cinematic vignette (subtle, transparent center) -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="65%">
       <stop offset="0%" stop-color="transparent"/>
-      <stop offset="100%" stop-color="#000000"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.35)"/>
     </radialGradient>
 
-    <!-- Glow filters -->
-    <filter id="cyanGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feFlood flood-color="#00e5ff" flood-opacity="0.6" result="color"/>
-      <feComposite in="color" in2="blur" operator="in" result="glow"/>
+    <!-- Hacker blur/focus animation filter for main title -->
+    <filter id="hackerBlur" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0" result="blur">
+        <animate attributeName="stdDeviation" values="0;2.5;0;0;4;0;0;0;1.5;0" dur="5s" repeatCount="indefinite"/>
+      </feGaussianBlur>
+    </filter>
+
+    <!-- Chromatic aberration / glitch filter for subtitle -->
+    <filter id="glitch" x="-5%" y="-5%" width="110%" height="110%">
+      <feOffset in="SourceGraphic" dx="2" dy="0" result="red">
+        <animate attributeName="dx" values="2;-1;3;0;-2;1;0" dur="3s" repeatCount="indefinite"/>
+      </feOffset>
+      <feOffset in="SourceGraphic" dx="-2" dy="0" result="blue">
+        <animate attributeName="dx" values="-2;1;-3;0;2;-1;0" dur="3s" repeatCount="indefinite"/>
+      </feOffset>
+      <feFlood flood-color="#ff2d75" flood-opacity="0.7" result="redColor"/>
+      <feFlood flood-color="#00e5ff" flood-opacity="0.7" result="blueColor"/>
+      <feComposite in="redColor" in2="red" operator="in" result="redOut"/>
+      <feComposite in="blueColor" in2="blue" operator="in" result="blueOut"/>
       <feMerge>
-        <feMergeNode in="glow"/>
-        <feMergeNode in="glow"/>
+        <feMergeNode in="redOut"/>
+        <feMergeNode in="blueOut"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
-    <filter id="magentaGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feFlood flood-color="#ff2d75" flood-opacity="0.5" result="color"/>
-      <feComposite in="color" in2="blur" operator="in" result="glow"/>
-      <feMerge>
-        <feMergeNode in="glow"/>
-        <feMergeNode in="glow"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <filter id="goldGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feFlood flood-color="#ffd700" flood-opacity="0.5" result="color"/>
-      <feComposite in="color" in2="blur" operator="in" result="glow"/>
-      <feMerge>
-        <feMergeNode in="glow"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <filter id="whiteBloom" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
+
+    <!-- Soft glow for info text -->
     <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
+
+    <!-- Cyan neon glow -->
+    <filter id="cyanGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#00e5ff" flood-opacity="0.5" result="color"/>
+      <feComposite in="color" in2="blur" operator="in" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Green terminal glow -->
+    <filter id="greenGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feFlood flood-color="#39ff14" flood-opacity="0.4" result="color"/>
+      <feComposite in="color" in2="blur" operator="in" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Pixelated pattern for retro overlay -->
+    <pattern id="pixelGrid" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="4" fill="transparent"/>
+      <rect width="3" height="3" fill="rgba(255,255,255,0.012)"/>
+    </pattern>
+
+    <!-- CRT scanline pattern -->
+    <pattern id="scanlines" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="4" fill="transparent"/>
+      <rect width="4" height="1" fill="rgba(0,0,0,0.15)"/>
+    </pattern>
+
+    <!-- Scan line sweep gradient -->
+    <linearGradient id="scanGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#39ff14" stop-opacity="0"/>
+      <stop offset="45%" stop-color="#39ff14" stop-opacity="0.06"/>
+      <stop offset="50%" stop-color="#39ff14" stop-opacity="0.18"/>
+      <stop offset="55%" stop-color="#39ff14" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#39ff14" stop-opacity="0"/>
+    </linearGradient>
 
     <!-- Horizontal grid line gradient (fades at edges) -->
     <linearGradient id="gridFade" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#00e5ff" stop-opacity="0"/>
-      <stop offset="30%" stop-color="#00e5ff" stop-opacity="0.15"/>
-      <stop offset="50%" stop-color="#00e5ff" stop-opacity="0.25"/>
-      <stop offset="70%" stop-color="#00e5ff" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#00e5ff" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#39ff14" stop-opacity="0"/>
+      <stop offset="20%" stop-color="#39ff14" stop-opacity="0.06"/>
+      <stop offset="50%" stop-color="#39ff14" stop-opacity="0.12"/>
+      <stop offset="80%" stop-color="#39ff14" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#39ff14" stop-opacity="0"/>
     </linearGradient>
     <linearGradient id="gridFadeV" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#00e5ff" stop-opacity="0"/>
-      <stop offset="30%" stop-color="#00e5ff" stop-opacity="0.08"/>
-      <stop offset="50%" stop-color="#00e5ff" stop-opacity="0.15"/>
-      <stop offset="70%" stop-color="#00e5ff" stop-opacity="0.08"/>
-      <stop offset="100%" stop-color="#00e5ff" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#39ff14" stop-opacity="0"/>
+      <stop offset="20%" stop-color="#39ff14" stop-opacity="0.04"/>
+      <stop offset="50%" stop-color="#39ff14" stop-opacity="0.08"/>
+      <stop offset="80%" stop-color="#39ff14" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#39ff14" stop-opacity="0"/>
     </linearGradient>
-
-    <!-- Scan line gradient -->
-    <linearGradient id="scanGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#00e5ff" stop-opacity="0"/>
-      <stop offset="45%" stop-color="#00e5ff" stop-opacity="0.12"/>
-      <stop offset="50%" stop-color="#00e5ff" stop-opacity="0.3"/>
-      <stop offset="55%" stop-color="#00e5ff" stop-opacity="0.12"/>
-      <stop offset="100%" stop-color="#00e5ff" stop-opacity="0"/>
-    </linearGradient>
-
-    <!-- Orb for animated emoji faces -->
-    <radialGradient id="orbYellow" cx="50%" cy="40%" r="50%">
-      <stop offset="0%" stop-color="#fff7a0"/>
-      <stop offset="60%" stop-color="#ffde59"/>
-      <stop offset="100%" stop-color="#e6a800"/>
-    </radialGradient>
-    <radialGradient id="orbPink" cx="50%" cy="40%" r="50%">
-      <stop offset="0%" stop-color="#ffb3d9"/>
-      <stop offset="60%" stop-color="#ff66b2"/>
-      <stop offset="100%" stop-color="#cc3385"/>
-    </radialGradient>
 
     <!-- Lens flare streak -->
     <linearGradient id="flareGrad" x1="0" y1="0.5" x2="1" y2="0.5">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
-      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.15"/>
-      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.35"/>
-      <stop offset="60%" stop-color="#ffffff" stop-opacity="0.15"/>
+      <stop offset="40%" stop-color="#39ff14" stop-opacity="0.08"/>
+      <stop offset="50%" stop-color="#39ff14" stop-opacity="0.2"/>
+      <stop offset="60%" stop-color="#39ff14" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </linearGradient>
   </defs>
 
-  <!-- =================== BACKGROUND =================== -->
-  <rect width="1000" height="420" fill="url(#bgGrad)"/>
+  <!-- =================== TRANSPARENT BACKGROUND =================== -->
+  <!-- No solid background — GitHub's own dark background shows through -->
+  <rect width="1000" height="420" fill="transparent"/>
 
-  <!-- Subtle grid overlay -->
-  <g opacity="0.35">
-    <line x1="0" y1="105" x2="1000" y2="105" stroke="url(#gridFade)" stroke-width="0.5"/>
-    <line x1="0" y1="210" x2="1000" y2="210" stroke="url(#gridFade)" stroke-width="0.5"/>
-    <line x1="0" y1="315" x2="1000" y2="315" stroke="url(#gridFade)" stroke-width="0.5"/>
-    <line x1="250" y1="0" x2="250" y2="420" stroke="url(#gridFadeV)" stroke-width="0.5"/>
-    <line x1="500" y1="0" x2="500" y2="420" stroke="url(#gridFadeV)" stroke-width="0.5"/>
-    <line x1="750" y1="0" x2="750" y2="420" stroke="url(#gridFadeV)" stroke-width="0.5"/>
+  <!-- =================== PIXEL GRID OVERLAY =================== -->
+  <rect width="1000" height="420" fill="url(#pixelGrid)"/>
+
+  <!-- =================== SUBTLE GRID =================== -->
+  <g opacity="0.25">
+    <line x1="0" y1="84" x2="1000" y2="84" stroke="url(#gridFade)" stroke-width="0.5"/>
+    <line x1="0" y1="168" x2="1000" y2="168" stroke="url(#gridFade)" stroke-width="0.5"/>
+    <line x1="0" y1="252" x2="1000" y2="252" stroke="url(#gridFade)" stroke-width="0.5"/>
+    <line x1="0" y1="336" x2="1000" y2="336" stroke="url(#gridFade)" stroke-width="0.5"/>
+    <line x1="200" y1="0" x2="200" y2="420" stroke="url(#gridFadeV)" stroke-width="0.5"/>
+    <line x1="400" y1="0" x2="400" y2="420" stroke="url(#gridFadeV)" stroke-width="0.5"/>
+    <line x1="600" y1="0" x2="600" y2="420" stroke="url(#gridFadeV)" stroke-width="0.5"/>
+    <line x1="800" y1="0" x2="800" y2="420" stroke="url(#gridFadeV)" stroke-width="0.5"/>
   </g>
 
-  <!-- =================== STARFIELD =================== -->
-  <g opacity="0.7">
-    <circle cx="82" cy="38" r="1" fill="#ffffff"><animate attributeName="opacity" values="0.2;1;0.2" dur="3s" repeatCount="indefinite"/></circle>
-    <circle cx="190" cy="72" r="0.8" fill="#b0d4ff"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="4.2s" repeatCount="indefinite" begin="0.5s"/></circle>
-    <circle cx="330" cy="25" r="1.2" fill="#ffffff"><animate attributeName="opacity" values="0.1;1;0.1" dur="5s" repeatCount="indefinite" begin="1s"/></circle>
-    <circle cx="470" cy="55" r="0.7" fill="#ffe0b2"><animate attributeName="opacity" values="0.4;1;0.4" dur="3.8s" repeatCount="indefinite" begin="2s"/></circle>
-    <circle cx="620" cy="30" r="1" fill="#ffffff"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="4.5s" repeatCount="indefinite" begin="0.8s"/></circle>
-    <circle cx="780" cy="50" r="0.9" fill="#c8e6ff"><animate attributeName="opacity" values="0.3;1;0.3" dur="3.5s" repeatCount="indefinite" begin="1.5s"/></circle>
-    <circle cx="910" cy="35" r="1.1" fill="#ffffff"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="5.5s" repeatCount="indefinite" begin="3s"/></circle>
-    <circle cx="55" cy="130" r="0.6" fill="#ffd1dc"><animate attributeName="opacity" values="0.3;1;0.3" dur="4s" repeatCount="indefinite" begin="1.2s"/></circle>
-    <circle cx="150" cy="310" r="0.9" fill="#ffffff"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="6s" repeatCount="indefinite" begin="2.5s"/></circle>
-    <circle cx="870" cy="180" r="0.7" fill="#b0d4ff"><animate attributeName="opacity" values="0.4;1;0.4" dur="3.2s" repeatCount="indefinite" begin="0.3s"/></circle>
-    <circle cx="940" cy="340" r="1" fill="#ffffff"><animate attributeName="opacity" values="0.1;0.8;0.1" dur="4.8s" repeatCount="indefinite" begin="4s"/></circle>
-    <circle cx="40" cy="380" r="0.8" fill="#ffe0b2"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="5.2s" repeatCount="indefinite" begin="1.8s"/></circle>
-    <circle cx="720" cy="390" r="1" fill="#ffffff"><animate attributeName="opacity" values="0.2;1;0.2" dur="3.6s" repeatCount="indefinite" begin="0.6s"/></circle>
-    <circle cx="300" cy="395" r="0.6" fill="#c8e6ff"><animate attributeName="opacity" values="0.5;1;0.5" dur="4.4s" repeatCount="indefinite" begin="2.2s"/></circle>
-    <circle cx="560" cy="400" r="0.9" fill="#ffffff"><animate attributeName="opacity" values="0.15;0.85;0.15" dur="5.8s" repeatCount="indefinite" begin="3.5s"/></circle>
-    <circle cx="430" cy="15" r="0.7" fill="#ffd1dc"><animate attributeName="opacity" values="0.2;0.9;0.2" dur="4.6s" repeatCount="indefinite" begin="1.3s"/></circle>
-    <circle cx="960" cy="90" r="0.8" fill="#ffffff"><animate attributeName="opacity" values="0.3;1;0.3" dur="3.3s" repeatCount="indefinite" begin="0.9s"/></circle>
-    <circle cx="25" cy="250" r="1" fill="#b0d4ff"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="5.4s" repeatCount="indefinite" begin="2.8s"/></circle>
-    <circle cx="850" cy="280" r="0.6" fill="#ffffff"><animate attributeName="opacity" values="0.4;1;0.4" dur="4.1s" repeatCount="indefinite" begin="1.6s"/></circle>
-    <circle cx="680" cy="75" r="0.9" fill="#ffe0b2"><animate attributeName="opacity" values="0.1;0.9;0.1" dur="6.2s" repeatCount="indefinite" begin="4.5s"/></circle>
-  </g>
-
-  <!-- =================== SCAN LINE =================== -->
-  <rect x="0" y="0" width="1000" height="100" fill="url(#scanGrad)" opacity="0.5">
-    <animate attributeName="y" from="-100" to="420" dur="6s" repeatCount="indefinite"/>
+  <!-- =================== SCAN LINE SWEEP =================== -->
+  <rect x="0" y="0" width="1000" height="80" fill="url(#scanGrad)" opacity="0.5">
+    <animate attributeName="y" from="-80" to="420" dur="7s" repeatCount="indefinite"/>
   </rect>
 
   <!-- =================== ENERGY TRACERS =================== -->
-  <g opacity="0.5">
-    <!-- Cyan tracers -->
-    <rect x="0" y="85" width="80" height="2" fill="#00e5ff" rx="1">
-      <animate attributeName="x" from="-120" to="1100" dur="7s" repeatCount="indefinite" begin="0s"/>
-      <animate attributeName="opacity" values="0;0.8;0.8;0" dur="7s" repeatCount="indefinite" begin="0s"/>
+  <g opacity="0.35">
+    <rect x="0" y="90" width="60" height="1" fill="#39ff14" rx="1">
+      <animate attributeName="x" from="-100" to="1100" dur="8s" repeatCount="indefinite" begin="0s"/>
+      <animate attributeName="opacity" values="0;0.6;0.6;0" dur="8s" repeatCount="indefinite" begin="0s"/>
     </rect>
-    <rect x="0" y="175" width="140" height="2" fill="#00e5ff" rx="1">
-      <animate attributeName="x" from="-180" to="1100" dur="5.5s" repeatCount="indefinite" begin="1.5s"/>
-      <animate attributeName="opacity" values="0;0.7;0.7;0" dur="5.5s" repeatCount="indefinite" begin="1.5s"/>
+    <rect x="0" y="195" width="100" height="1" fill="#39ff14" rx="1">
+      <animate attributeName="x" from="-140" to="1100" dur="6s" repeatCount="indefinite" begin="2s"/>
+      <animate attributeName="opacity" values="0;0.5;0.5;0" dur="6s" repeatCount="indefinite" begin="2s"/>
     </rect>
-    <rect x="0" y="345" width="100" height="2" fill="#00e5ff" rx="1">
-      <animate attributeName="x" from="-130" to="1100" dur="9s" repeatCount="indefinite" begin="3s"/>
-      <animate attributeName="opacity" values="0;0.6;0.6;0" dur="9s" repeatCount="indefinite" begin="3s"/>
+    <rect x="0" y="340" width="80" height="1" fill="#39ff14" rx="1">
+      <animate attributeName="x" from="-120" to="1100" dur="10s" repeatCount="indefinite" begin="4s"/>
+      <animate attributeName="opacity" values="0;0.4;0.4;0" dur="10s" repeatCount="indefinite" begin="4s"/>
     </rect>
-    <!-- Magenta tracers -->
-    <rect x="0" y="130" width="50" height="2" fill="#ff2d75" rx="1">
-      <animate attributeName="x" from="1100" to="-100" dur="8s" repeatCount="indefinite" begin="2s"/>
-      <animate attributeName="opacity" values="0;0.7;0.3;0.7;0" dur="8s" repeatCount="indefinite" begin="2s"/>
+    <rect x="0" y="150" width="40" height="1" fill="#00e5ff" rx="1">
+      <animate attributeName="x" from="1100" to="-80" dur="9s" repeatCount="indefinite" begin="1s"/>
+      <animate attributeName="opacity" values="0;0.5;0;0.5;0" dur="9s" repeatCount="indefinite" begin="1s"/>
     </rect>
-    <rect x="0" y="290" width="170" height="2" fill="#ff2d75" rx="1">
-      <animate attributeName="x" from="1100" to="-200" dur="6.5s" repeatCount="indefinite" begin="4s"/>
-      <animate attributeName="opacity" values="0;0.6;0" dur="6.5s" repeatCount="indefinite" begin="4s"/>
+    <rect x="0" y="300" width="120" height="1" fill="#00e5ff" rx="1">
+      <animate attributeName="x" from="1100" to="-160" dur="7s" repeatCount="indefinite" begin="3s"/>
+      <animate attributeName="opacity" values="0;0.4;0" dur="7s" repeatCount="indefinite" begin="3s"/>
     </rect>
   </g>
 
   <!-- =================== HUD CORNER BRACKETS =================== -->
-  <g stroke="#00e5ff" stroke-width="1.5" fill="none" opacity="0.6">
-    <animate attributeName="opacity" values="0.4;0.7;0.4" dur="4s" repeatCount="indefinite"/>
-    <!-- Top-left -->
-    <polyline points="30,60 30,30 60,30"/>
-    <!-- Top-right -->
-    <polyline points="940,30 970,30 970,60"/>
-    <!-- Bottom-left -->
-    <polyline points="30,360 30,390 60,390"/>
-    <!-- Bottom-right -->
-    <polyline points="940,390 970,390 970,360"/>
+  <g stroke="#39ff14" stroke-width="1.5" fill="none" opacity="0.4">
+    <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite"/>
+    <polyline points="20,50 20,20 50,20"/>
+    <polyline points="950,20 980,20 980,50"/>
+    <polyline points="20,370 20,400 50,400"/>
+    <polyline points="950,400 980,400 980,370"/>
   </g>
 
   <!-- Inner HUD frame -->
-  <g stroke="#ff2d75" stroke-width="0.8" fill="none" opacity="0.3">
-    <animate attributeName="opacity" values="0.2;0.4;0.2" dur="5s" repeatCount="indefinite" begin="1s"/>
-    <polyline points="50,70 50,50 70,50"/>
-    <polyline points="930,50 950,50 950,70"/>
-    <polyline points="50,350 50,370 70,370"/>
-    <polyline points="930,370 950,370 950,350"/>
+  <g stroke="#00e5ff" stroke-width="0.6" fill="none" opacity="0.2">
+    <animate attributeName="opacity" values="0.15;0.3;0.15" dur="5s" repeatCount="indefinite" begin="1s"/>
+    <polyline points="40,60 40,40 60,40"/>
+    <polyline points="940,40 960,40 960,60"/>
+    <polyline points="40,360 40,380 60,380"/>
+    <polyline points="940,380 960,380 960,360"/>
   </g>
 
-  <!-- =================== PULSING CENTER RINGS =================== -->
-  <g transform="translate(500, 210)">
-    <circle cx="0" cy="0" r="130" fill="none" stroke="#00e5ff" stroke-width="0.5" opacity="0.15">
-      <animate attributeName="r" values="120;145;120" dur="6s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.1;0.2;0.1" dur="6s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="0" cy="0" r="160" fill="none" stroke="#ff2d75" stroke-width="0.4" opacity="0.1">
-      <animate attributeName="r" values="155;175;155" dur="8s" repeatCount="indefinite" begin="1s"/>
-      <animate attributeName="opacity" values="0.05;0.15;0.05" dur="8s" repeatCount="indefinite" begin="1s"/>
-    </circle>
-  </g>
-
-  <!-- =================== SPARK EFFECTS =================== -->
-  <!-- Center burst -->
-  <g transform="translate(500, 210)" opacity="0">
-    <animate attributeName="opacity" values="0;1;0;0" keyTimes="0;0.02;0.08;1" dur="12s" begin="5s" repeatCount="indefinite"/>
-    <circle cx="0" cy="0" r="10" fill="#ffffff" filter="url(#whiteBloom)"/>
-    <path d="M-25,0 L25,0 M0,-25 L0,25" stroke="#ffffff" stroke-width="2" filter="url(#cyanGlow)"/>
-  </g>
-
-  <!-- Corner sparks -->
-  <g transform="translate(80, 210)" opacity="0">
-    <animate attributeName="opacity" values="0;0.8;0;0" keyTimes="0;0.02;0.06;1" dur="10s" begin="0s" repeatCount="indefinite"/>
-    <circle cx="0" cy="0" r="4" fill="#00e5ff" filter="url(#cyanGlow)"/>
-  </g>
-  <g transform="translate(920, 210)" opacity="0">
-    <animate attributeName="opacity" values="0;0.8;0;0" keyTimes="0;0.02;0.06;1" dur="10s" begin="0s" repeatCount="indefinite"/>
-    <circle cx="0" cy="0" r="4" fill="#00e5ff" filter="url(#cyanGlow)"/>
-  </g>
-  <g transform="translate(300, 20)" opacity="0">
-    <animate attributeName="opacity" values="0;0.7;0;0" keyTimes="0;0.02;0.06;1" dur="10s" begin="2.5s" repeatCount="indefinite"/>
-    <circle cx="0" cy="0" r="3" fill="#ff2d75" filter="url(#magentaGlow)"/>
-  </g>
-  <g transform="translate(700, 400)" opacity="0">
-    <animate attributeName="opacity" values="0;0.7;0;0" keyTimes="0;0.02;0.06;1" dur="10s" begin="2.5s" repeatCount="indefinite"/>
-    <circle cx="0" cy="0" r="3" fill="#ff2d75" filter="url(#magentaGlow)"/>
-  </g>
-  <g transform="translate(300, 400)" opacity="0">
-    <animate attributeName="opacity" values="0;0.6;0;0" keyTimes="0;0.02;0.06;1" dur="10s" begin="7.5s" repeatCount="indefinite"/>
-    <circle cx="0" cy="0" r="3" fill="#ffffff" filter="url(#whiteBloom)"/>
-  </g>
-  <g transform="translate(700, 20)" opacity="0">
-    <animate attributeName="opacity" values="0;0.6;0;0" keyTimes="0;0.02;0.06;1" dur="10s" begin="7.5s" repeatCount="indefinite"/>
-    <circle cx="0" cy="0" r="3" fill="#ffffff" filter="url(#whiteBloom)"/>
-  </g>
-
-  <!-- =================== ANIMATED EMOJI ORBS =================== -->
-  <!-- Yellow smiley orb (with cinematic glow trail) -->
-  <g>
-    <animateMotion path="M 100,210 L 300,50 L 475,210 L 300,370 Z" dur="12s" repeatCount="indefinite"/>
-    <circle cx="0" cy="0" r="22" fill="url(#orbYellow)" filter="url(#goldGlow)"/>
-    <circle cx="0" cy="0" r="24" fill="none" stroke="#ffd700" stroke-width="1" opacity="0.4">
-      <animate attributeName="r" values="24;28;24" dur="2s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.4;0.1;0.4" dur="2s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="-7" cy="-5" r="2.5" fill="#1a1d21"/>
-    <circle cx="7" cy="-5" r="2.5" fill="#1a1d21"/>
-    <path d="M -10,4 Q 0,14 10,4" fill="none" stroke="#1a1d21" stroke-width="2.5" stroke-linecap="round"/>
-  </g>
-
-  <!-- Pink frown orb (with cinematic glow trail) -->
-  <g>
-    <animateMotion path="M 900,210 L 700,370 L 525,210 L 700,50 Z" dur="12.7s" repeatCount="indefinite"/>
-    <circle cx="0" cy="0" r="22" fill="url(#orbPink)" filter="url(#magentaGlow)"/>
-    <circle cx="0" cy="0" r="24" fill="none" stroke="#ff2d75" stroke-width="1" opacity="0.4">
-      <animate attributeName="r" values="24;28;24" dur="2.5s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.4;0.1;0.4" dur="2.5s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="-7" cy="-4" r="2.5" fill="#1a1d21"/>
-    <circle cx="7" cy="-4" r="2.5" fill="#1a1d21"/>
-    <path d="M -10,12 Q 0,4 10,12" fill="none" stroke="#1a1d21" stroke-width="2.5" stroke-linecap="round"/>
-  </g>
-
-  <!-- =================== LENS FLARE =================== -->
-  <rect x="0" y="195" width="1000" height="4" fill="url(#flareGrad)" opacity="0">
-    <animate attributeName="opacity" values="0;0.5;0;0;0" keyTimes="0;0.08;0.16;0.5;1" dur="10s" repeatCount="indefinite" begin="3s"/>
+  <!-- =================== BLINKING CURSOR EFFECT =================== -->
+  <rect x="60" y="68" width="8" height="14" fill="#39ff14" opacity="0">
+    <animate attributeName="opacity" values="0;0.7;0;0.7;0" dur="1.2s" repeatCount="indefinite"/>
   </rect>
 
-  <!-- =================== TEXT CONTENT =================== -->
-  <g text-anchor="middle" font-family="'Inter', 'Segoe UI', 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" letter-spacing="1">
-
-    <!-- Name: cinematic title with layered glow -->
-    <text x="500" y="145" font-size="36" font-weight="800" fill="#ffffff" filter="url(#cyanGlow)" letter-spacing="6">MD. AWESH RAZA QUADRI</text>
-
-    <!-- Subtitle -->
-    <text x="500" y="198" font-size="20" font-weight="600" fill="#ff2d75" filter="url(#magentaGlow)" letter-spacing="3">// ASPIRING AI &amp; ML QUANT</text>
-
-    <!-- Divider bar -->
-    <rect x="350" y="218" width="300" height="1" fill="#00e5ff" opacity="0.4" rx="1">
-      <animate attributeName="width" values="280;320;280" dur="4s" repeatCount="indefinite"/>
-      <animate attributeName="x" values="360;340;360" dur="4s" repeatCount="indefinite"/>
-    </rect>
-
-    <!-- Bottom HUD dot accents -->
-    <circle cx="340" cy="222" r="2" fill="#00e5ff" opacity="0.5" filter="url(#softGlow)"/>
-    <circle cx="660" cy="222" r="2" fill="#00e5ff" opacity="0.5" filter="url(#softGlow)"/>
-
-    <!-- Education line -->
-    <text x="500" y="268" font-size="15" font-weight="500" fill="#00e5ff" filter="url(#softGlow)" letter-spacing="2">CSE '29 @OUTR | DS &amp; ML '29 @IITM BS</text>
-
-    <!-- Focus line -->
-    <text x="500" y="298" font-size="13" font-weight="400" fill="#7a8599" letter-spacing="1.5">FOCUSED ON COMPETITIVE PROGRAMMING &amp; DATABASES</text>
-
-    <!-- Small decorative HUD text -->
-    <text x="80" y="405" font-size="8" font-weight="400" fill="#2a3040" letter-spacing="2" font-family="monospace">SYS::ONLINE</text>
-    <text x="920" y="405" font-size="8" font-weight="400" fill="#2a3040" letter-spacing="2" font-family="monospace">v2.0_CINEMATIC</text>
+  <!-- =================== FLOATING DATA PARTICLES =================== -->
+  <g opacity="0.4">
+    <circle cx="120" cy="100" r="1.5" fill="#39ff14">
+      <animate attributeName="opacity" values="0.1;0.6;0.1" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="100;90;100" dur="6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="880" cy="130" r="1" fill="#00e5ff">
+      <animate attributeName="opacity" values="0.2;0.7;0.2" dur="4s" repeatCount="indefinite" begin="1s"/>
+      <animate attributeName="cy" values="130;120;130" dur="8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="200" cy="350" r="1.2" fill="#39ff14">
+      <animate attributeName="opacity" values="0.15;0.5;0.15" dur="5s" repeatCount="indefinite" begin="2s"/>
+    </circle>
+    <circle cx="800" cy="370" r="1" fill="#00e5ff">
+      <animate attributeName="opacity" values="0.1;0.6;0.1" dur="3.5s" repeatCount="indefinite" begin="0.5s"/>
+    </circle>
+    <circle cx="500" cy="50" r="1.3" fill="#39ff14">
+      <animate attributeName="opacity" values="0.2;0.8;0.2" dur="4.5s" repeatCount="indefinite" begin="3s"/>
+    </circle>
+    <circle cx="350" cy="380" r="0.8" fill="#39ff14">
+      <animate attributeName="opacity" values="0.1;0.5;0.1" dur="6s" repeatCount="indefinite" begin="1.5s"/>
+    </circle>
+    <circle cx="650" cy="70" r="1.1" fill="#00e5ff">
+      <animate attributeName="opacity" values="0.15;0.6;0.15" dur="5.5s" repeatCount="indefinite" begin="2.5s"/>
+    </circle>
   </g>
 
+  <!-- =================== TEXT CONTENT =================== -->
+  <!-- Main Name — abstract monospace font with animated hacker blur -->
+  <g text-anchor="middle">
+    <text x="500" y="155" font-family="'Courier New', 'Lucida Console', monospace" font-size="38" font-weight="700" fill="#39ff14" filter="url(#hackerBlur)" letter-spacing="8" opacity="0.95">MD. AWESH RAZA QUADRI</text>
+    <!-- Chromatic ghost layers for retro depth -->
+    <text x="502" y="155" font-family="'Courier New', 'Lucida Console', monospace" font-size="38" font-weight="700" fill="#00e5ff" letter-spacing="8" opacity="0.12">
+      <animate attributeName="x" values="502;499;503;500;502" dur="4s" repeatCount="indefinite"/>
+      MD. AWESH RAZA QUADRI
+    </text>
+    <text x="498" y="155" font-family="'Courier New', 'Lucida Console', monospace" font-size="38" font-weight="700" fill="#ff2d75" letter-spacing="8" opacity="0.1">
+      <animate attributeName="x" values="498;501;497;500;498" dur="4s" repeatCount="indefinite"/>
+      MD. AWESH RAZA QUADRI
+    </text>
+  </g>
+
+  <!-- Subtitle — glitch chromatic aberration -->
+  <text x="500" y="205" text-anchor="middle" font-family="'Courier New', 'Lucida Console', monospace" font-size="16" font-weight="400" fill="#00e5ff" filter="url(#glitch)" letter-spacing="4" opacity="0.85">&gt;_ ASPIRING AI &amp; ML QUANT</text>
+
+  <!-- Divider bar -->
+  <g text-anchor="middle">
+    <rect x="370" y="225" width="260" height="1" fill="#39ff14" opacity="0.25" rx="1">
+      <animate attributeName="width" values="240;280;240" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="x" values="380;360;380" dur="4s" repeatCount="indefinite"/>
+    </rect>
+    <circle cx="365" cy="226" r="1.5" fill="#39ff14" opacity="0.35" filter="url(#softGlow)"/>
+    <circle cx="635" cy="226" r="1.5" fill="#39ff14" opacity="0.35" filter="url(#softGlow)"/>
+  </g>
+
+  <!-- Education line -->
+  <text x="500" y="265" text-anchor="middle" font-family="'Courier New', 'Lucida Console', monospace" font-size="13" font-weight="400" fill="#58a6ff" filter="url(#softGlow)" letter-spacing="2" opacity="0.8">CSE '29 @OUTR | DS &amp; ML '29 @IITM BS</text>
+
+  <!-- Focus line -->
+  <text x="500" y="295" text-anchor="middle" font-family="'Courier New', 'Lucida Console', monospace" font-size="11" font-weight="400" fill="#8b949e" letter-spacing="1.5" opacity="0.65">FOCUSED ON COMPETITIVE PROGRAMMING &amp; DATABASES</text>
+
+  <!-- Decorative HUD text (hacker terminal style) -->
+  <text x="65" y="400" font-family="'Courier New', 'Lucida Console', monospace" font-size="8" font-weight="400" fill="#39ff14" letter-spacing="2" opacity="0.25">SYS::ACTIVE</text>
+  <text x="880" y="400" font-family="'Courier New', 'Lucida Console', monospace" font-size="8" font-weight="400" fill="#39ff14" letter-spacing="2" opacity="0.25">v3.0_RETRO</text>
+  <text x="65" y="30" font-family="'Courier New', 'Lucida Console', monospace" font-size="7" font-weight="400" fill="#8b949e" letter-spacing="1" opacity="0.2">0x4157455348</text>
+  <text x="880" y="30" font-family="'Courier New', 'Lucida Console', monospace" font-size="7" font-weight="400" fill="#8b949e" letter-spacing="1" opacity="0.2">INIT::READY</text>
+
+  <!-- =================== LENS FLARE =================== -->
+  <rect x="0" y="200" width="1000" height="3" fill="url(#flareGrad)" opacity="0">
+    <animate attributeName="opacity" values="0;0.35;0;0;0" keyTimes="0;0.08;0.16;0.5;1" dur="12s" repeatCount="indefinite" begin="4s"/>
+  </rect>
+
+  <!-- =================== CRT SCANLINE OVERLAY =================== -->
+  <rect width="1000" height="420" fill="url(#scanlines)" opacity="0.6"/>
+
   <!-- =================== VIGNETTE OVERLAY =================== -->
-  <rect width="1000" height="420" fill="url(#vignette)" opacity="0.55"/>
+  <rect width="1000" height="420" fill="url(#vignette)" opacity="0.4"/>
 </svg>
