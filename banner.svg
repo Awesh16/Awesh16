@@ -14,6 +14,13 @@
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
+    
+    <filter id="ballGlowGreen" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12" />
+    </filter>
+    <filter id="ballGlowRed" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12" />
+    </filter>
   </defs>
 
   <g opacity="0.6">
@@ -41,26 +48,34 @@
   </g>
 
   <g>
-    <animateTransform attributeName="transform" type="translate" values="40,0; 960,0; 40,0" dur="13s" repeatCount="indefinite" />
+    <animateTransform attributeName="transform" type="translate" values="60,0; 940,0; 60,0" dur="7s" repeatCount="indefinite" />
     <g>
-      <animateTransform attributeName="transform" type="translate" values="0,40; 0,380; 0,40" dur="9s" repeatCount="indefinite" />
+      <animateTransform attributeName="transform" type="translate" values="0,60; 0,360; 0,60" dur="5s" repeatCount="indefinite" />
       
-      <circle cx="0" cy="0" r="25" fill="#ffde59" stroke="#1a1d21" stroke-width="2"/>
-      <circle cx="-8" cy="-6" r="3" fill="#1a1d21"/>
-      <circle cx="8" cy="-6" r="3" fill="#1a1d21"/>
-      <path d="M -12,4 Q 0,16 12,4" fill="none" stroke="#1a1d21" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="0" cy="0" r="55" fill="#00ff41" filter="url(#ballGlowGreen)" opacity="0.8"/>
+      
+      <circle cx="0" cy="0" r="50" fill="#ffde59" stroke="#1a1d21" stroke-width="6"/>
+      <path d="M -35,-15 L -10,-5 L -20,-30 Z" fill="#ffffff" stroke="#1a1d21" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M 35,-15 L 10,-5 L 20,-30 Z" fill="#ffffff" stroke="#1a1d21" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M -40,5 Q 0,60 40,5 Z" fill="#1a1d21" />
+      <path d="M -40,5 L -27,22 L -14,5 L 0,24 L 14,5 L 27,22 L 40,5 Z" fill="#ffffff" />
+      <path d="M -25,32 L -15,20 L -5,38 L 5,20 L 15,38 L 25,32 Q 0,48 -25,32 Z" fill="#ffffff" />
     </g>
   </g>
 
   <g>
-    <animateTransform attributeName="transform" type="translate" values="960,0; 40,0; 960,0" dur="17s" repeatCount="indefinite" />
+    <animateTransform attributeName="transform" type="translate" values="940,0; 60,0; 940,0" dur="9s" repeatCount="indefinite" />
     <g>
-      <animateTransform attributeName="transform" type="translate" values="0,380; 0,40; 0,380" dur="11s" repeatCount="indefinite" />
+      <animateTransform attributeName="transform" type="translate" values="0,360; 0,60; 0,360" dur="6s" repeatCount="indefinite" />
       
-      <circle cx="0" cy="0" r="25" fill="#ff66b2" stroke="#1a1d21" stroke-width="2"/>
-      <circle cx="-8" cy="-4" r="3" fill="#1a1d21"/>
-      <circle cx="8" cy="-4" r="3" fill="#1a1d21"/>
-      <path d="M -12,14 Q 0,4 12,14" fill="none" stroke="#1a1d21" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="0" cy="0" r="55" fill="#ff4444" filter="url(#ballGlowRed)" opacity="0.8"/>
+
+      <circle cx="0" cy="0" r="50" fill="#ff66b2" stroke="#1a1d21" stroke-width="6"/>
+      <path d="M -35,-15 L -10,-5 L -20,-30 Z" fill="#ffffff" stroke="#1a1d21" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M 35,-15 L 10,-5 L 20,-30 Z" fill="#ffffff" stroke="#1a1d21" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M -40,10 Q 0,-35 40,10 Z" fill="#1a1d21" />
+      <path d="M -40,10 L -27,-12 L -14,10 L 0,-16 L 14,10 L 27,-12 L 40,10 Z" fill="#ffffff" />
+      <path d="M -25,-2 L -15,10 L -5,-12 L 5,10 L 15,-12 L 25,-2 Q 0,-20 -25,-2 Z" fill="#ffffff" />
     </g>
   </g>
 
